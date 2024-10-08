@@ -35,17 +35,16 @@
         android:hint="비밀번호를 입력해주세요."
         android:paddingLeft="10dp"
         android:background="@drawable/memo_border"
-
         android:inputType="textPersonName" />
 
     <Button
         android:id="@+id/login_btn"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
-
         android:background="@drawable/buttoncolor"
         android:layout_marginTop="10dp"
         android:textColor="#ffffff"
         android:textSize="20dp"
         android:text="login" />
+
 </LinearLayout>

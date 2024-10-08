@@ -59,7 +59,7 @@
             android:layout_marginBottom="30dp">
 
         <Button
-            android:id="@+id/login_btn"
+            android:id="@+id/login_btn_main"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:background="@drawable/buttoncolor"

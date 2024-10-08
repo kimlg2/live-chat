@@ -47,11 +47,6 @@ class MainActivity : AppCompatActivity() {
                 }
         }
         }
-
-
-
-
-
         val logoImageView: ImageView = findViewById(R.id.logo_image)
         logoImageView.setColorFilter(Color.parseColor("#C1BDDA"), PorterDuff.Mode.SRC_IN)
     }

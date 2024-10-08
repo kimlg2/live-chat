@@ -38,6 +38,9 @@ class MainActivity : AppCompatActivity() {
             auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
+                        val  intent = Intent(this,LoginActivity::class.java)
+                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                        startActivity(intent)
                         Log.d(TAG, "성공")
                     } else {
                         Log.d(TAG, "실패", task.exception)

@@ -55,7 +55,6 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        // 로고 이미지 색상 변경
         val logoImageView: ImageView = findViewById(R.id.logo_image)
         logoImageView.setColorFilter(Color.parseColor("#C1BDDA"), PorterDuff.Mode.SRC_IN)
     }

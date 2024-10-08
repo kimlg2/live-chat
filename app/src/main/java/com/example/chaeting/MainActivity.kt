@@ -20,7 +20,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val login_btn_main: Button = findViewById<Button>(R.id.login_btn_main)
         val email: EditText = findViewById<EditText>(R.id.email)
         val password: EditText = findViewById<EditText>(R.id.password)
         val signUp_btn_main: Button = findViewById<Button>(R.id.signUp_btn_main)
@@ -51,12 +50,7 @@ class MainActivity : AppCompatActivity() {
 
 
 
-        login_btn_main.setOnClickListener {
 
-            val intent = Intent(this, LoginActivity::class.java)
-
-            startActivity(intent)
-        }
 
         val logoImageView: ImageView = findViewById(R.id.logo_image)
         logoImageView.setColorFilter(Color.parseColor("#C1BDDA"), PorterDuff.Mode.SRC_IN)

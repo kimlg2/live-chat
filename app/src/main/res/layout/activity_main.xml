@@ -58,15 +58,6 @@
             android:layout_marginTop="20dp"
             android:layout_marginBottom="30dp">
 
-        <Button
-            android:id="@+id/login_btn_main"
-            android:layout_width="120dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/buttoncolor"
-            android:text="로그인"
-            android:textColor="#ffffff"
-            android:textSize="20dp"
-            />
 
         <Button
             android:id="@+id/signUp_btn_main"

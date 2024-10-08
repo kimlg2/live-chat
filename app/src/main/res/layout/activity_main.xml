@@ -43,7 +43,7 @@
         android:layout_height="60dp"
         android:layout_marginTop="20dp"
         android:ems="10"
-        android:inputType="textPersonName"
+        android:inputType="textPassword"
         android:hint="비밀번호를 입력해주세요!"
         android:paddingLeft="10dp"
         android:background="@drawable/memo_border"
@@ -69,7 +69,7 @@
             />
 
         <Button
-            android:id="@+id/signUp"
+            android:id="@+id/signUp_btn_main"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="30px"

@@ -39,7 +39,9 @@ class LoginActivity : AppCompatActivity() {
                     if (task.isSuccessful) {
                         // Sign in success, update UI with the signed-in user's information
                         Log.d(TAG, "성공")
-
+                        val  intent = Intent(this,ChatlistActivity::class.java)
+                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                       startActivity(intent)
                     } else {
                         // If sign in fails, display a message to the user.
                         Log.w(TAG, "실패", task.exception)

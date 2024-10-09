@@ -10,8 +10,10 @@ import android.widget.EditText
 import android.widget.ImageView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.example.chaeting.Model.User
 import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 class MainActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
@@ -23,6 +25,7 @@ class MainActivity : AppCompatActivity() {
         val email: EditText = findViewById<EditText>(R.id.email)
         val password: EditText = findViewById<EditText>(R.id.password)
         val signUp_btn_main: Button = findViewById<Button>(R.id.signUp_btn_main)
+        val username: EditText = findViewById<EditText>(R.id.username)
         FirebaseApp.initializeApp(this)
         auth = FirebaseAuth.getInstance()
 
@@ -37,11 +40,26 @@ class MainActivity : AppCompatActivity() {
             auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
+
+
+                        Log.d(TAG, "성공")
+                        val uid = FirebaseAuth.getInstance().uid ?: ""
+                        val user = User(uid,username.text.toString())
+
+                        val db = FirebaseFirestore.getInstance().collection("users")
+                        db.document(uid)
+                            .set(user)
+                            .addOnSuccessListener {
+                                Log.d(TAG,"데이터베이스 성공")
+                            }
+                            .addOnFailureListener {
+                                Log.d(TAG,"데이터베이스 실패")
+                            }
                         val  intent = Intent(this,LoginActivity::class.java)
                         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                         startActivity(intent)
-                        Log.d(TAG, "성공")
                     } else {
+
                         Log.d(TAG, "실패", task.exception)
                     }
                 }

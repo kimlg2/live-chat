@@ -7,4 +7,12 @@
     android:layout_height="match_parent"
     tools:context=".ChatlistActivity">
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview"
+        android:layout_width="352dp"
+        android:layout_height="538dp"
+        android:layout_marginTop="40dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:layout_editor_absoluteX="29dp"
+        tools:layout_editor_absoluteY="64dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

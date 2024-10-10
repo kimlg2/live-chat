@@ -1,6 +1,7 @@
 package com.example.chaeting
 
 import android.content.ContentValues.TAG
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.enableEdgeToEdge
@@ -22,10 +23,6 @@ class ChatlistActivity : AppCompatActivity() {
         val recyclerView: RecyclerView = findViewById(R.id.recyclerview)
         val adpater = GroupAdapter<GroupieViewHolder>()
 
-
-
-
-
         db.collection("users")
             .get()
             .addOnSuccessListener { result ->
@@ -39,5 +36,10 @@ class ChatlistActivity : AppCompatActivity() {
             .addOnFailureListener { exception ->
                 Log.w(TAG, "Error getting documents.", exception)
             }
+
+        adpater.setOnItemClickListener { item, view ->
+            val intent = Intent(this, ChatRoomActivity::class.java)
+            startActivity(intent)
+        }
     }
 }

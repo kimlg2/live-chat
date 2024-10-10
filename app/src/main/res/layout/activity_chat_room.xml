@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/ChatText"
         android:layout_width="240dp"
         android:layout_height="60dp"
         android:layout_marginStart="36dp"
@@ -34,7 +34,7 @@
         app:layout_constraintTop_toBottomOf="@+id/recyclerView_chat" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/Chatbutton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"

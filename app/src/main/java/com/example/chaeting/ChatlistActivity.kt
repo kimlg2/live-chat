@@ -1,15 +1,11 @@
 package com.example.chaeting
 
-import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.example.chaeting.Model.UserItem
+import com.example.chaeting.Adapler.UserItem
 import com.google.firebase.firestore.FirebaseFirestore
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
@@ -27,9 +23,8 @@ class ChatlistActivity : AppCompatActivity() {
             .get()
             .addOnSuccessListener { result ->
                 for (document in result) {
-                    adpater.add(UserItem(document.get("username").toString()))
-                    Log.d(TAG, document.get("username").toString())
-                    Log.d(TAG, "${document.id} => ${document.data}")
+                    adpater.add(UserItem(document.get("username").toString(), document.get("uid").toString()))
+
                 }
                 recyclerView.adapter = adpater
             }
@@ -38,7 +33,14 @@ class ChatlistActivity : AppCompatActivity() {
             }
 
         adpater.setOnItemClickListener { item, view ->
+
+            val name : String = (item as UserItem).name
+            val uid : String = (item as UserItem).uid
+
             val intent = Intent(this, ChatRoomActivity::class.java)
+            intent.putExtra("yourUid",uid)
+            intent.putExtra("name",name)
+
             startActivity(intent)
         }
     }

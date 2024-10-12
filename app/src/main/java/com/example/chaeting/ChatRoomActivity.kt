@@ -32,24 +32,43 @@ class ChatRoomActivity : AppCompatActivity() {
 
         val adpater = GroupAdapter<GroupieViewHolder>()
 
-        adpater.add(ChatLeftyou())
-        adpater.add(ChatLeftyou())
-        adpater.add(ChatLeftyou())
-        adpater.add(ChatLeftyou())
-        adpater.add(ChatRightMe())
-        adpater.add(ChatRightMe())
-        adpater.add(ChatRightMe())
-        adpater.add(ChatRightMe())
+//        adpater.add(ChatLeftyou())
+//        adpater.add(ChatLeftyou())
+//        adpater.add(ChatLeftyou())
+//        adpater.add(ChatLeftyou())
+//        adpater.add(ChatRightMe())
+//        adpater.add(ChatRightMe())
+//        adpater.add(ChatRightMe())
+//        adpater.add(ChatRightMe())
 
         recyclerView_chat.adapter = adpater
 
         val db = FirebaseFirestore.getInstance()
+        db.collection("message")
+            .orderBy("time")
+            .get()
+            .addOnSuccessListener { result ->
+                for (document in result ) {
+                    Log.d(TAG,document.toString())
+                    val senderUid= document.get("myUid")
+                    val msg = document.get("message").toString()
+                    Log.e(TAG, senderUid.toString())
+
+                    if (senderUid!!.equals(myUid)) {
+                        adpater.add(ChatRightMe(msg))
+                    } else {
+                        adpater.add(ChatLeftyou(msg))
+                    }
+                 }
+                recyclerView_chat.adapter = adpater
+              }
         Chatbutton.setOnClickListener {
             val message :String = ChatText.text.toString()
             ChatText.setText("")
 
-            val chat = ChatModel(myUid.toString() ,yourUid.toString(),message)
+            val chat = ChatModel(myUid.toString() ,yourUid.toString(),message,System.currentTimeMillis())
                 db.collection("message")
+
                     .add(chat)
                     .addOnSuccessListener {
                        Log.d(TAG, "성공")

@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat">
         <activity
+            android:name=".MyroomActivity"
+            android:exported="false" />
+        <activity
             android:name=".ChatRoomActivity"
             android:exported="false" />
         <activity

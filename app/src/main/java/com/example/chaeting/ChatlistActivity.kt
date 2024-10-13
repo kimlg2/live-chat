@@ -23,13 +23,13 @@ class ChatlistActivity : AppCompatActivity() {
             .get()
             .addOnSuccessListener { result ->
                 for (document in result) {
-                    adpater.add(UserItem(document.get("username").toString(), document.get("uid").toString()))
+                    val username = document.get("username").toString()
+                    val uid = document.get("uid").toString()
+                    val createdAt = document.getLong("createdAt") ?: 0
 
+                    adpater.add(UserItem(username, uid, createdAt))
                 }
                 recyclerView.adapter = adpater
-            }
-            .addOnFailureListener { exception ->
-                Log.w(TAG, "Error getting documents.", exception)
             }
 
         adpater.setOnItemClickListener { item, view ->

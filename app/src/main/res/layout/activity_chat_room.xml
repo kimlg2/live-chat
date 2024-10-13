@@ -9,8 +9,8 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView_chat"
-        android:layout_width="260dp"
-        android:layout_height="423dp"
+        android:layout_width="354dp"
+        android:layout_height="437dp"
         android:layout_marginTop="68dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"
@@ -27,7 +27,7 @@
         android:layout_marginTop="28dp"
         android:paddingLeft="10dp"
         android:ems="10"
-        android:hint="이름"
+        android:hint="메세지를 입력해주세요"
         android:background="@drawable/memo_border"
         android:inputType="textPersonName"
         app:layout_constraintStart_toStartOf="parent"

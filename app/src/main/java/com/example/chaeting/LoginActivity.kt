@@ -43,13 +43,13 @@ class LoginActivity : AppCompatActivity() {
             auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
-                        // Sign in success, update UI with the signed-in user's information
+
                         Log.d(TAG, "성공")
                         val  intent = Intent(this,ChatlistActivity::class.java)
                         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                        startActivity(intent)
                     } else {
-                        // 로그인 실패 시 알림 다이얼로그 표시
+
                         Log.w(TAG, "실패", task.exception)
                         showAlertDialog("이메일 또는 비밀번호를 올바르게 입력해 주세요.")
                     }

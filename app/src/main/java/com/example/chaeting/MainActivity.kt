@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
             val password = password.text.toString()
             val usernameInput = username.text.toString()
             if (email.isEmpty() || password.isEmpty() || usernameInput.isEmpty()) {
-                showAlertDialog("회원정보를 입력해주세요.") // 모든 입력이 비어있을 경우
+                showAlertDialog("회원정보를 입력해주세요.")
                 return@setOnClickListener
             }
 
@@ -56,7 +56,7 @@ class MainActivity : AppCompatActivity() {
 
                         Log.d(TAG, "성공")
                         val uid = FirebaseAuth.getInstance().uid ?: ""
-                        val user = User(uid, username.text.toString(), System.currentTimeMillis()) // 현재 시간을 밀리초로 저장
+                        val user = User(uid, username.text.toString(), System.currentTimeMillis())
 
 
                         val db = FirebaseFirestore.getInstance().collection("users")

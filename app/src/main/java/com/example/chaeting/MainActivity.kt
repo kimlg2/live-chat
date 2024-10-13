@@ -32,10 +32,22 @@ class MainActivity : AppCompatActivity() {
         signUp_btn_main.setOnClickListener {
             val email = email.text.toString()
             val password = password.text.toString()
+            val usernameInput = username.text.toString()
+            if (email.isEmpty() || password.isEmpty() || usernameInput.isEmpty()) {
+                showAlertDialog("회원정보를 입력해주세요.") // 모든 입력이 비어있을 경우
+                return@setOnClickListener
+            }
 
-            if(password.length < 5) {
+            if (password.length < 5) {
                 showAlertDialog("비밀번호는 5글자 이상이어야 합니다.")
-            } else {
+                return@setOnClickListener
+            } else if (usernameInput.length > 5) { // username 길이 체크
+                showAlertDialog("사용자 이름은 5글자 이하여야 합니다.")
+                return@setOnClickListener
+            }
+
+
+            else {
 
             auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this) { task ->
@@ -44,7 +56,8 @@ class MainActivity : AppCompatActivity() {
 
                         Log.d(TAG, "성공")
                         val uid = FirebaseAuth.getInstance().uid ?: ""
-                        val user = User(uid,username.text.toString())
+                        val user = User(uid, username.text.toString(), System.currentTimeMillis()) // 현재 시간을 밀리초로 저장
+
 
                         val db = FirebaseFirestore.getInstance().collection("users")
                         db.document(uid)

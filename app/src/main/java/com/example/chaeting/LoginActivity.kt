@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -16,6 +17,7 @@ import com.google.firebase.Firebase
 import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
+
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
@@ -34,6 +36,10 @@ class LoginActivity : AppCompatActivity() {
         login_btn.setOnClickListener {
             val email = login_email.text.toString()
             val password = login_pwd.text.toString()
+            if (email.isEmpty() || password.isEmpty()) {
+                showAlertDialog("이메일과 비밀번호를 입력해주세요.")
+                return@setOnClickListener
+            }
             auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
@@ -43,9 +49,9 @@ class LoginActivity : AppCompatActivity() {
                         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                        startActivity(intent)
                     } else {
-                        // If sign in fails, display a message to the user.
+                        // 로그인 실패 시 알림 다이얼로그 표시
                         Log.w(TAG, "실패", task.exception)
-
+                        showAlertDialog("이메일 또는 비밀번호를 올바르게 입력해 주세요.")
                     }
                 }
 
@@ -61,5 +67,14 @@ class LoginActivity : AppCompatActivity() {
         val logoImageView: ImageView = findViewById(R.id.logo_image)
         logoImageView.setColorFilter(Color.parseColor("#C1BDDA"), PorterDuff.Mode.SRC_IN);
 
+    }
+    private fun showAlertDialog(message: String) {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("알림")
+        builder.setMessage(message)
+        builder.setPositiveButton("확인") { dialog, _ ->
+            dialog.dismiss()
+        }
+        builder.show()
     }
 }

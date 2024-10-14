@@ -50,10 +50,11 @@ class ChatRoomActivity : AppCompatActivity() {
                 val model = p0.getValue(ChatNewModel::class.java)
                 val msg = model?.message.toString()
                 val who = model?.who
-                if (who=="me") {
+                if (who == "me") {
                     adpater.add(ChatRightMe(msg))
-                } else  {
-                    adpater.add(ChatLeftyou(msg))
+                } else {
+                    // ChatLeftyou에 상대방의 이름도 함께 전달
+                    adpater.add(ChatLeftyou(msg, name ?: "Unknown"))
                 }
 
             }

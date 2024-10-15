@@ -3,6 +3,7 @@ package com.example.chaeting
 import SpaceItemDecoration
 import android.content.Intent
 import android.os.Bundle
+import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -15,21 +16,22 @@ class ChatlistActivity : AppCompatActivity() {
     private val TAG = ChatlistActivity::class.java.simpleName
     val db = FirebaseFirestore.getInstance()
 
+    private lateinit var adapter: GroupAdapter<GroupieViewHolder>
+    private var allUsers = mutableListOf<UserItem>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chatlist)
 
-        // RecyclerView와 GroupAdapter 설정
         val recyclerView: RecyclerView = findViewById(R.id.recyclerview)
-        val adapter = GroupAdapter<GroupieViewHolder>()
+        adapter = GroupAdapter()
 
-        // GridLayoutManager를 설정하여 한 줄에 3개의 아이템이 나오도록 설정
-        val gridLayoutManager = GridLayoutManager(this, 2) // 열의 수를 3으로 설정
+        val gridLayoutManager = GridLayoutManager(this, 2)
         recyclerView.layoutManager = gridLayoutManager
 
-        // ItemDecoration 추가 (간격 설정)
-        val spacing = 2 // 각 아이템 사이의 간격을 10px로 설정
+        val spacing = 2
         recyclerView.addItemDecoration(SpaceItemDecoration(spacing))
+
 
         db.collection("users")
             .get()
@@ -39,10 +41,26 @@ class ChatlistActivity : AppCompatActivity() {
                     val uid = document.get("uid").toString()
                     val createdAt = document.getLong("createdAt") ?: 0
 
-                    adapter.add(UserItem(username, uid, createdAt))
+                    val userItem = UserItem(username, uid, createdAt)
+                    allUsers.add(userItem)
                 }
+                adapter.update(allUsers)
                 recyclerView.adapter = adapter
             }
+
+
+        val searchView: SearchView = findViewById(R.id.search_view)
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                filterUsers(newText.orEmpty())
+                return true
+            }
+        })
+
 
         adapter.setOnItemClickListener { item, view ->
             val name: String = (item as UserItem).name
@@ -54,5 +72,15 @@ class ChatlistActivity : AppCompatActivity() {
 
             startActivity(intent)
         }
+    }
+
+
+    private fun filterUsers(query: String) {
+        val filteredList = if (query.isEmpty()) {
+            allUsers
+        } else {
+            allUsers.filter { it.name.contains(query, ignoreCase = true) }
+        }
+        adapter.update(filteredList)
     }
 }

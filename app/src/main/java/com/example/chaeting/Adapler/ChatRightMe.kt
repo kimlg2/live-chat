@@ -8,10 +8,9 @@ import com.xwray.groupie.Item
 class ChatRightMe(val msg: String) : Item<GroupieViewHolder>() {
 
     override fun bind(viewHolder: GroupieViewHolder, position: Int) {
-        // findViewById로 TextView를 찾은 후 변수에 저장
+
         val rightMsgTextView: TextView = viewHolder.itemView.findViewById(R.id.right_msg)
 
-        // TextView에 메시지 설정
         rightMsgTextView.text = msg
     }
 
